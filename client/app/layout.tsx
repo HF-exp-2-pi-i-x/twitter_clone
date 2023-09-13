@@ -23,15 +23,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <Box sx={{ width: "80%", mx: " auto" }}>
           <Grid container sx={{ height: "100vh" }}>
-            <Grid item id="left-sidebar" xs>
+            <Grid item id="left-sidebar" xs={3}>
               <LeftSideBar />
             </Grid>
-            <Divider orientation="vertical" />
-            <Grid item id="content" xs={6}>
+            <Grid item id="content" xs={6} sx={{ display: "flex" }}>
+              <Divider orientation="vertical" />
               {children}
+              <Divider orientation="vertical" />
             </Grid>
-            <Divider orientation="vertical" />
-            <Grid item id="right-sidebar" xs>
+            <Grid item id="right-sidebar" xs={3}>
               <RightSidebar />
             </Grid>
           </Grid>

@@ -5,8 +5,6 @@ import {
   Box,
   Button,
   Card,
-  CardContent,
-  CardHeader,
   Divider,
   Grid,
   IconButton,
@@ -50,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <>
+    <Box>
       <Box id="home-tabs">
         <Typography
           fontWeight={"bold"}
@@ -189,7 +187,7 @@ export default function Home() {
         <TweetBox />
         <TweetBox />
       </Box>
-    </>
+    </Box>
   );
 }
 
