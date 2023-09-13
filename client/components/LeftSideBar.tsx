@@ -48,7 +48,7 @@ const iconList: { text: string; icon: React.ReactNode }[] = [
 
 const LeftSideBar = () => {
   return (
-    <List sx={{ height: "100%", position: "fixed" }}>
+    <List sx={{ width: "341px", height: "100%", position: "fixed" }}>
       <SidebarItem icon={Xlogo} />
 
       {iconList.map((item, index) => {

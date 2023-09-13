@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Button,
-  Card,
   Divider,
   Grid,
   IconButton,
@@ -193,7 +192,7 @@ export default function Home() {
 
 const TweetBox = () => {
   return (
-    <Card id="tweet">
+    <Box id="tweet">
       <Grid container sx={{ mt: 1 }}>
         <Grid
           item
@@ -271,11 +270,12 @@ const TweetBox = () => {
               <Tooltip title="Share" sx={{ float: "left" }}>
                 <IosShareOutlinedIcon fontSize="small" />
               </Tooltip>
-              <Typography sx={{ float: "right", ml: 1 }}>9</Typography>
+              <Typography sx={{ float: "right", mx: 1 }}>9</Typography>
             </Box>
           </Box>
         </Grid>
       </Grid>
-    </Card>
+      <Divider />
+    </Box>
   );
 };
