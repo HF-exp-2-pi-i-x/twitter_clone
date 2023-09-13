@@ -1,24 +1,21 @@
 import {
-  Avatar,
   Box,
   Button,
   InputAdornment,
   List,
-  ListItem,
   ListItemButton,
-  Paper,
   TextField,
   Typography,
-  makeStyles,
 } from "@mui/material";
 
 // icons
 import SearchIcon from "@mui/icons-material/Search";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import TrendingListItem from "./TrendingListItem";
+import FollowingListItem from "./FollowingListItem";
 
 function RightSidebar() {
   return (
-    <Box sx={{ position: "fixed", width: "341px" }}>
+    <Box id="right-sidebar-search" sx={{ position: "fixed", width: "341px" }}>
       <TextField
         fullWidth
         variant="standard"
@@ -188,90 +185,3 @@ function RightSidebar() {
 }
 
 export default RightSidebar;
-
-const TrendingListItem = (props: {
-  heading: string;
-  title: string;
-  post: string;
-}) => {
-  return (
-    <ListItemButton sx={{ p: 0, display: "block" }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <Typography
-          sx={{ color: "rgb(83, 100, 113)", fontSize: "13px", ml: 2 }}
-        >
-          {props.heading}
-        </Typography>
-        <MoreHorizIcon
-          fontSize="small"
-          sx={{ color: "rgb(83, 100, 113)", mr: 2 }}
-        />
-      </Box>
-      <Typography
-        sx={{
-          fontSize: "15px",
-          ml: 2,
-          fontWeight: "bold",
-          color: "rgb(15, 20, 25)",
-        }}
-      >
-        {props.title}
-      </Typography>
-      <Typography sx={{ color: "rgb(83, 100, 113)", fontSize: "13px", ml: 2 }}>
-        {`${props.post} posts`}
-      </Typography>
-    </ListItemButton>
-  );
-};
-
-const FollowingListItem = (props: { username: string; id: string }) => {
-  return (
-    <ListItemButton
-      sx={{ p: 1, width: "100%", justifyContent: "space-between" }}
-    >
-      <Box sx={{ display: "flex", gap: "10px" }}>
-        <Avatar alt="K" />
-        <Box>
-          <Typography
-            sx={{
-              fontSize: "15px",
-              fontWeight: "bold",
-              color: "rgb(15, 20, 25)",
-            }}
-          >
-            {props.username}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "15px",
-              color: "rgb(83, 100, 113)",
-            }}
-          >
-            {props.id}
-          </Typography>
-        </Box>
-      </Box>
-      <Button
-        size="small"
-        sx={{
-          mt: 1,
-          borderRadius: "30px",
-          backgroundColor: "rgb(15, 20, 25)",
-          ":hover": {
-            backgroundColor: "rgb(15, 20, 25)",
-          },
-        }}
-        variant="contained"
-      >
-        Follow
-      </Button>
-    </ListItemButton>
-  );
-};
