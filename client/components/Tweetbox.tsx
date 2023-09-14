@@ -15,9 +15,17 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 
-const TweetBox = () => {
+type tweetType = {
+  id: number;
+  uid: number;
+  username: string;
+  post: string;
+  date: string;
+};
+
+const TweetBox = (props: tweetType) => {
   return (
-    <Box id="tweet">
+    <Box id={`${props.id}`}>
       <Grid container sx={{ mt: 1 }}>
         <Grid
           item
@@ -41,23 +49,14 @@ const TweetBox = () => {
             }}
           >
             <Typography textAlign={"justify"}>
-              username @userid date"
+              {`${props.username} @${props.uid} 4${props.date}`}
             </Typography>
             <IconButton>
               <MoreHorizIcon />
             </IconButton>
           </Box>
 
-          <Typography sx={{ mb: 2 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            commodo libero a est lobortis, nec dictum erat congue. Aliquam erat
-            volutpat. Vivamus ultrices nisl nec placerat bibendum. Sed at porta
-            elit, at tincidunt justo. Suspendisse consequat metus scelerisque
-            odio tempus, quis posuere ligula cursus. Donec tincidunt, turpis at
-            efficitur ultricies, nisl diam bibendum lectus, id laoreet augue
-            velit nec mi. Orci varius natoque penatibus et magnis dis parturient
-            montes, nascetur ridiculus mus.
-          </Typography>
+          <Typography sx={{ mb: 2 }}>{props.post}</Typography>
 
           <Box
             id="tweet-actions"

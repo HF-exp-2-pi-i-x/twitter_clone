@@ -62,9 +62,9 @@ app.get("/follows", (req, res) => {
 });
 
 //get all tweets you follow
-app.get("/followedTweets", (req, res) => {
+app.post("/followedTweets", (req, res) => {
   const q =
-    "SELECT * FROM tweets WHERE uid IN (SELECT uid FROM follows WHERE follower = ?)";
+    "SELECT * FROM tweets WHERE uid IN (SELECT uid FROM follows WHERE follower = ?) ORDER BY date";
   const values = [req.body.uid];
   db.query(q, [...values], (err, data) => {
     if (err) return res.json(err);
