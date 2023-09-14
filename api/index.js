@@ -19,8 +19,8 @@ app.get("/", (req, res) => {
   res.json("this is backend");
 });
 
-app.get("/user", (req, res) => {
-  const q = "SELECT * FROM user";
+app.get("/users", (req, res) => {
+  const q = "SELECT * FROM users";
   db.query(q, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
@@ -73,7 +73,7 @@ app.get("/followedTweets", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  const q = "INSERT INTO user(username,password) VALUES(?)";
+  const q = "INSERT INTO users(username,password) VALUES(?)";
   const values = [req.body.username, req.body.password];
   db.query(q, [values], (err, data) => {
     if (err) return res.json(err);
@@ -82,7 +82,7 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const q = "SELECT id,username FROM user WHERE username=? AND password=?";
+  const q = "SELECT id,username FROM users WHERE username=? AND password=?";
   const values = [req.body.username, req.body.password];
   db.query(q, [...values], (err, data) => {
     if (err) res.json(err);
