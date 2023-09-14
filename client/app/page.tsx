@@ -1,12 +1,13 @@
 "use client";
 
 import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 // icons
 import TweetBox from "@/components/Tweetbox";
 import HomePost from "@/components/HomePost";
+import { AuthContext } from "@/context/AuthContext";
 
 type tweetType = {
   id: number;
@@ -21,6 +22,9 @@ export default function Home() {
   const [tweets, setTweets] = useState<tweetType[]>([]);
   const [follow, setFollow] = useState<boolean>(false);
 
+  // to be changed
+  const { state } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchAllTweets = async () => {
       try {
@@ -34,8 +38,8 @@ export default function Home() {
         }
         setTweets(res.data);
         console.log(res.data);
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        console.log(err.message);
       }
     };
     fetchAllTweets();
