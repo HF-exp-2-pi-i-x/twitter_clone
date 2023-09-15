@@ -13,8 +13,12 @@ type ActionType = {
   payload: { id: string; username: string } | string;
 };
 
-const id = localStorage.getItem("id");
-const username = localStorage.getItem("username");
+let id, username;
+// can't use localStorage on server side
+if (typeof window !== "undefined") {
+  id = localStorage.getItem("id");
+  username = localStorage.getItem("username");
+}
 
 const INITIAL_STATE = {
   id: id ? JSON.parse(id) : null,

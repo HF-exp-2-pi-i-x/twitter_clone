@@ -15,7 +15,7 @@ import FollowingListItem from "./FollowingListItem";
 
 function RightSidebar() {
   return (
-    <Box id="right-sidebar-search" sx={{ position: "fixed", width: "341px" }}>
+    <Box id="right-sidebar-search" sx={{ width: "100%" }}>
       <TextField
         fullWidth
         variant="standard"

@@ -3,11 +3,11 @@
 import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-
-// icons
+import { AuthContext } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 import TweetBox from "@/components/Tweetbox";
 import HomePost from "@/components/HomePost";
-import { AuthContext } from "@/context/AuthContext";
+import MainLayout from "./main_layout";
 
 type tweetType = {
   id: number;
@@ -24,6 +24,13 @@ export default function Home() {
 
   // to be changed
   const { state } = useContext(AuthContext);
+  const router = useRouter();
+  // console.log(state);
+  useEffect(() => {
+    if (!state.id) {
+      router.push("/login");
+    }
+  }, []);
 
   useEffect(() => {
     const fetchAllTweets = async () => {
@@ -37,7 +44,7 @@ export default function Home() {
           });
         }
         setTweets(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err: any) {
         console.log(err.message);
       }
@@ -50,37 +57,40 @@ export default function Home() {
   };
 
   return (
-    <Box>
-      <Box id="home-tabs">
-        <Typography
-          fontWeight={"bold"}
-          color="rgb(15, 20, 25)"
-          fontSize={20}
-          sx={{ ml: 2, my: 2 }}
-        >
-          Home
-        </Typography>
-        <Tabs value={follow} variant="fullWidth" onChange={handleFollow}>
-          <Tab value={false} label="For you" />
-          <Tab value={true} label="Following" />
-        </Tabs>
+    <MainLayout>
+      <Box>
+        <Box id="home-tabs">
+          <Typography
+            fontWeight={"bold"}
+            color="rgb(15, 20, 25)"
+            fontSize={20}
+            sx={{ ml: 2, my: 2 }}
+          >
+            Home
+          </Typography>
+          <Tabs value={follow} variant="fullWidth" onChange={handleFollow}>
+            <Tab value={false} label="For you" />
+            <Tab value={true} label="Following" />
+          </Tabs>
+        </Box>
+        <Divider />
+        <HomePost />
+        <Divider sx={{ mt: 1 }} />
+        <Box id="tweets">
+          {tweets.map((tweet) => {
+            return (
+              <TweetBox
+                key={tweet.id}
+                id={tweet.id}
+                uid={tweet.uid}
+                username={tweet.username}
+                date={tweet.date}
+                post={tweet.post}
+              />
+            );
+          })}
+        </Box>
       </Box>
-      <Divider />
-      <HomePost />
-      <Divider sx={{ mt: 1 }} />
-      <Box id="tweets">
-        {tweets.map((tweet) => {
-          return (
-            <TweetBox
-              id={tweet.id}
-              uid={tweet.uid}
-              username={tweet.username}
-              date={tweet.date}
-              post={tweet.post}
-            />
-          );
-        })}
-      </Box>
-    </Box>
+    </MainLayout>
   );
 }

@@ -25,7 +25,7 @@ type tweetType = {
 
 const TweetBox = (props: tweetType) => {
   return (
-    <Box id={`${props.id}`}>
+    <Box key={`${props.id}`}>
       <Grid container sx={{ mt: 1 }}>
         <Grid
           item

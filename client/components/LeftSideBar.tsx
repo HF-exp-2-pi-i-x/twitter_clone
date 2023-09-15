@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Button,
@@ -9,6 +10,8 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import SidebarItem from "./SidebarItem";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 // icons
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -47,8 +50,11 @@ const iconList: { text: string; icon: React.ReactNode }[] = [
 ];
 
 const LeftSideBar = () => {
+  const { state } = useContext(AuthContext);
+  // console.log(state);
+
   return (
-    <List sx={{ width: "341px", height: "100%", position: "fixed" }}>
+    <List sx={{ position: "fixed", height: "100%" }}>
       <SidebarItem icon={Xlogo} />
 
       {iconList.map((item, index) => {
@@ -76,9 +82,11 @@ const LeftSideBar = () => {
             <AccountCircleIcon fontSize="large" />
           </ListItemIcon>
           <Box>
-            <Typography sx={{ fontWeight: "bold" }}>username</Typography>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {state.username ? state.username : "username"}
+            </Typography>
             <Typography sx={{ color: "rgb(83, 100, 113)" }}>
-              @user_id
+              {state.id ? `@${state.id}` : "@user_id"}
             </Typography>
           </Box>
           <MoreHorizIcon sx={{ ml: "auto" }} />
