@@ -40,7 +40,7 @@ export default function Home() {
           res = await axios.get("http://localhost:4001/tweets");
         } else {
           res = await axios.post("http://localhost:4001/followedTweets", {
-            uid: 1,
+            uid: state.id,
           });
         }
         setTweets(res.data);

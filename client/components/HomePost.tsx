@@ -11,7 +11,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 // icons
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
@@ -20,9 +20,29 @@ import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import { AuthContext } from "@/context/AuthContext";
+import axios from "axios";
 
 const HomePost = () => {
   const [audience, setAudience] = useState<string>("Everyone");
+
+  const [post, setPost] = useState<string>("");
+
+  const { state } = useContext(AuthContext);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost(e.target.value);
+  };
+
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await axios.post("http://localhost:4001/tweets", {
+      uid: state.id,
+      username: state.username,
+      post: post,
+    });
+    window.location.reload();
+  };
 
   const handleAudience = (e: any) => {
     setAudience(e.target.value);
@@ -70,6 +90,7 @@ const HomePost = () => {
             InputProps={{
               disableUnderline: true,
             }}
+            onChange={handleChange}
           />
           <Divider sx={{ mt: 2, mb: 2 }} />
           <Box
@@ -133,6 +154,8 @@ const HomePost = () => {
                 size="small"
                 sx={{ borderRadius: "100px", mr: 2 }}
                 variant="contained"
+                disabled={!post}
+                onClick={handleClick}
               >
                 Post
               </Button>

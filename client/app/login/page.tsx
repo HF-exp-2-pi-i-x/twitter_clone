@@ -20,7 +20,7 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials((cred) => ({
       ...cred,
-      [e.target.name]: e.target.value.replace(/\s/g, ""),
+      [e.target.name]: e.target.value,
     }));
   };
 

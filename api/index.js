@@ -36,8 +36,8 @@ app.get("/tweets", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  const q = "INSERT INTO tweets(uid, post, date) VALUES (?)";
-  const values = [req.body.uid, req.body.post, new Date()];
+  const q = "INSERT INTO tweets(uid,username, post, date) VALUES (?)";
+  const values = [req.body.uid, req.body.username, req.body.post, new Date()];
   db.query(q, [values], (err, data) => {
     if (err) return res.json(err);
     return res.json("tweet has been created");
