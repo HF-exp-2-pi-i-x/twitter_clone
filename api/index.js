@@ -85,7 +85,7 @@ app.post("/login", (req, res) => {
   const q = "SELECT id,username FROM users WHERE username=? AND password=?";
   const values = [req.body.username, req.body.password];
   db.query(q, [...values], (err, data) => {
-    if (err) res.json(err);
+    if (err) return res.json(err);
     return res.json(data);
   });
 });
