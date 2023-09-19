@@ -24,11 +24,15 @@ import { AuthContext } from "@/context/AuthContext";
 import axios from "axios";
 
 const HomePost = () => {
+  const { state } = useContext(AuthContext);
+
   const [audience, setAudience] = useState<string>("Everyone");
 
-  const [post, setPost] = useState<string>("");
+  const handleAudience = (e: any) => {
+    setAudience(e.target.value);
+  };
 
-  const { state } = useContext(AuthContext);
+  const [post, setPost] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPost(e.target.value);
@@ -42,10 +46,6 @@ const HomePost = () => {
       post: post,
     });
     window.location.reload();
-  };
-
-  const handleAudience = (e: any) => {
-    setAudience(e.target.value);
   };
 
   return (

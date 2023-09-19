@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "@/context/AuthContext";
@@ -9,23 +9,17 @@ import TweetBox from "@/components/Tweetbox";
 import HomePost from "@/components/HomePost";
 import MainLayout from "./main_layout";
 
-type tweetType = {
-  id: number;
-  uid: number;
-  username: string;
-  post: string;
-  date: string;
-};
+import { tweetType } from "@/types/types";
+import HomeTab from "@/components/HomeTab";
 
 export default function Home() {
-  // type to be added
   const [tweets, setTweets] = useState<tweetType[]>([]);
   const [follow, setFollow] = useState<boolean>(false);
 
-  // to be changed
-  const { state } = useContext(AuthContext);
   const router = useRouter();
-  // console.log(state);
+
+  const { state } = useContext(AuthContext);
+
   useEffect(() => {
     if (!state.id) {
       router.push("/login");
@@ -44,7 +38,6 @@ export default function Home() {
           });
         }
         setTweets(res.data);
-        // console.log(res.data);
       } catch (err: any) {
         console.log(err.message);
       }
@@ -59,20 +52,7 @@ export default function Home() {
   return (
     <MainLayout>
       <Box>
-        <Box id="home-tabs">
-          <Typography
-            fontWeight={"bold"}
-            color="rgb(15, 20, 25)"
-            fontSize={20}
-            sx={{ ml: 2, my: 2 }}
-          >
-            Home
-          </Typography>
-          <Tabs value={follow} variant="fullWidth" onChange={handleFollow}>
-            <Tab value={false} label="For you" />
-            <Tab value={true} label="Following" />
-          </Tabs>
-        </Box>
+        <HomeTab follow={follow} handleFollow={handleFollow} />
         <Divider />
         <HomePost />
         <Divider sx={{ mt: 1 }} />
