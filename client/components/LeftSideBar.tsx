@@ -7,6 +7,8 @@ import {
   ListItemButton,
   ListItemIcon,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import SidebarItem from "./SidebarItem";
@@ -22,6 +24,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import PostAddSharpIcon from "@mui/icons-material/PostAddSharp";
 
 const Xlogo: React.ReactNode = (
   <svg
@@ -51,24 +54,38 @@ const iconList: { text: string; icon: React.ReactNode }[] = [
 
 const LeftSideBar = () => {
   const { state } = useContext(AuthContext);
-  // console.log(state);
+
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
-    <List sx={{ position: "fixed", height: "100%" }}>
+    <List
+      sx={{
+        height: "100%",
+        position: "fixed",
+        left: { xs: "-20px", sm: 0, md: "40px", lg: "auto" },
+      }}
+    >
       <SidebarItem icon={Xlogo} />
 
       {iconList.map((item, index) => {
         return <SidebarItem key={index} text={item.text} icon={item.icon} />;
       })}
 
-      <ListItem>
-        <Button
-          sx={{ borderRadius: "100px", width: "90%" }}
-          variant="contained"
-        >
-          Post
-        </Button>
-      </ListItem>
+      {large ? (
+        <ListItem>
+          <Button
+            sx={{ borderRadius: "100px", width: "90%" }}
+            variant="contained"
+          >
+            Post
+          </Button>
+        </ListItem>
+      ) : (
+        <SidebarItem
+          icon={<PostAddSharpIcon fontSize="large" color="primary" />}
+        />
+      )}
 
       <ListItem key="user" sx={{ position: "absolute", bottom: 0 }}>
         <ListItemButton
@@ -82,14 +99,23 @@ const LeftSideBar = () => {
             <AccountCircleIcon fontSize="large" />
           </ListItemIcon>
           <Box>
-            <Typography sx={{ fontWeight: "bold" }}>
+            <Typography
+              sx={{ display: { xs: "none", lg: "block" }, fontWeight: "bold" }}
+            >
               {state.username ? state.username : "username"}
             </Typography>
-            <Typography sx={{ color: "rgb(83, 100, 113)" }}>
+            <Typography
+              sx={{
+                display: { xs: "none", lg: "block" },
+                color: "rgb(83, 100, 113)",
+              }}
+            >
               {state.id ? `@${state.id}` : "@user_id"}
             </Typography>
           </Box>
-          <MoreHorizIcon sx={{ ml: "auto" }} />
+          <MoreHorizIcon
+            sx={{ display: { xs: "none", lg: "block" }, ml: "auto" }}
+          />
         </ListItemButton>
       </ListItem>
     </List>
